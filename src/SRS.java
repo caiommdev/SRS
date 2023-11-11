@@ -1,19 +1,9 @@
 import java.util.ArrayList;
 
 public class SRS {
-	// We can effectively create "global" data by declaring
-	// collections of objects as public static attributes in 
-	// the main class; these can then be accessed throughout the
-	// SRS application as:  SRS.collectionName; e.g., SRS.faculty.  
-
 	public static ArrayList<Professor> faculty; 
 	public static ArrayList<Student> studentBody; 
-	public static ArrayList<Course> courseCatalog; 
-
-	// The next collection -- of Section object references -- is encapsulated 
-	// within a special-purpose class by virtue of how we modeled the SRS in UML; 
-	// note that we could have encapsulated the preceding three collections in 
-	// similar fashion, and will in fact do so in Chapter 15.
+	public static ArrayList<Course> courseCatalog;
 
 	public static ScheduleOfClasses scheduleOfClasses = 
 		      new ScheduleOfClasses("SP2005");
@@ -24,14 +14,6 @@ public class SRS {
 		Course c1, c2, c3, c4, c5;
 		Section sec1, sec2, sec3, sec4, sec5, sec6, sec7;
 
-		// Create various objects by calling the appropriate 
-		// constructors.  (We'd normally be reading in such data
-		// from a database or file ...)
-
-		// -----------
-		// Professors.
-		// -----------
-
 		p1 = new Professor("Jacquie Barker", "123-45-6789", 
 				   "Adjunct Professor", "Information Technology");		
 
@@ -39,18 +21,13 @@ public class SRS {
 				   "Full Professor", "Chemistry");		
 
 		p3 = new Professor("Snidely Whiplash", "987-65-4321",
-				   "Full Professor", "Physical Education");		
-
-		// Add these to the appropriate ArrayList.
+				   "Full Professor", "Physical Education");
 
 		faculty = new ArrayList<Professor>();
 		faculty.add(p1);
 		faculty.add(p2);
 		faculty.add(p3);
 
-		// ---------
-		// Students.
-		// ---------
 		
 		s1 = new Student("Joe Blow", "111-11-1111", "Math", "M.S.");
 
@@ -59,16 +36,11 @@ public class SRS {
 
 		s3 = new Student("Mary Smith", "333-33-3333", "Physics", "B.S.");
 
-		// Add these to the appropriate ArrayList.
 
 		studentBody = new ArrayList<Student>();
 		studentBody.add(s1);
 		studentBody.add(s2);
 		studentBody.add(s3);
-
-		// --------
-		// Courses.
-		// --------
 		
 		c1 = new Course("CMP101",
 				"Beginning Computer Technology", 3.0);
@@ -85,8 +57,6 @@ public class SRS {
 		c5 = new Course("ART101",
 				"Beginning Basketweaving", 3.0);
 
-		// Add these to the appropriate ArrayList.
-
 		courseCatalog = new ArrayList<Course>();
 		courseCatalog.add(c1);
 		courseCatalog.add(c2);
@@ -94,19 +64,10 @@ public class SRS {
 		courseCatalog.add(c4);
 		courseCatalog.add(c5);
 
-		// Establish some prerequisites (c1 => c2 => c3 => c4).
 
 		c2.addPrerequisite(c1);
 		c3.addPrerequisite(c2);
-		c4.addPrerequisite(c3); 
-
-		// ---------
-		// Sections.
-		// ---------
-
-		// Schedule sections of each Course by calling the
-		// scheduleSection method of Course (which internally
-		// invokes the Section constructor). 
+		c4.addPrerequisite(c3);
 
 		sec1 = c1.scheduleSection('M', "8:10 - 10:00 PM", "GOVT101", 30);
 
@@ -121,8 +82,6 @@ public class SRS {
 		sec6 = c4.scheduleSection('R', "4:10 - 6:00 PM", "SCI241", 15);
 		
 		sec7 = c5.scheduleSection('M', "4:10 - 6:00 PM", "ARTS25", 40);
-		
-		// Add these to the Schedule of Classes.
 
 		scheduleOfClasses.addSection(sec1);
 		scheduleOfClasses.addSection(sec2);
@@ -131,8 +90,6 @@ public class SRS {
 		scheduleOfClasses.addSection(sec5);
 		scheduleOfClasses.addSection(sec6);
 		scheduleOfClasses.addSection(sec7);
-
-		// Recruit a professor to teach each of the sections.
 
 		p3.agreeToTeach(sec1);
 		p2.agreeToTeach(sec2);
@@ -147,9 +104,6 @@ public class SRS {
 		System.out.println("===============================");
 		System.out.println();
 
-		// Simulate students attempting to enroll in sections of
-		// various courses.
-
 		System.out.println("Student " + s1.getName() + 
 				   " is attempting to enroll in " +
 				   sec1.toString());
@@ -157,59 +111,22 @@ public class SRS {
 		EnrollmentStatus status = sec1.enroll(s1);
 		reportStatus(status);
 
-		// Note the use of a special "housekeeping" method above, reportStatus(), 
-		// to interpret and display the outcome of this enrollment request.
-		// We could have combined the preceding two lines with
-		// a single line instead, as follows:
-		//
-		//	reportStatus(sec1.enroll(s1));
-		//
-		// And, since the println() call just above that is also going to
-		// be repeated multiple times, we could have combined ALL THREE 
-		// LINES of code into a SINGLE line as follows:
-		//
-		//      attemptToEnroll(s1, sec1);
-		// 
-		// by writing a more elaborate "housekeeping" method, attemptToEnroll().
-	 	// We will, in fact, do so, and will use the more concise syntax for the 
-		// remainder of this program.
-
-		// Try concurrently enrolling the same Student in a different Section
-		// of the SAME Course!  This should fail.
-
 		attemptToEnroll(s1, sec2);
-
-		// This enrollment request should be fine ...
 
 		attemptToEnroll(s2, sec2);
 
-		// ... but here, the student in question hasn't satisfied the
-		// prerequisities, so the enrollment request should be rejected.
-
 		attemptToEnroll(s2, sec3);
 
-		// These requests should both be fine. 
-
 		attemptToEnroll(s2, sec7);
+
 		attemptToEnroll(s3, sec1);
 
-		// When the dust settles, here's what folks wound up
-		// being SUCCESSFULLY registered for:
-		//
-		// sec1:  s1, s3
-		// sec2:  s2
-		// sec7:  s2
-
-		// Semester is finished (boy, that was quick!).  
-		// Professors assign grades for specific students.
 
 		sec1.postGrade(s1, "C+");
 		sec1.postGrade(s3, "A");
 		sec2.postGrade(s2, "B+");
 		sec7.postGrade(s2, "A-");
-	
-		// Let's see if everything got set up properly
-		// by calling various display() methods.
+
 		
 		System.out.println("====================");
 		System.out.println("Schedule of Classes:");
@@ -234,21 +151,18 @@ public class SRS {
 		s3.display();
 	}
 
-	// Note that this is a private static housekeeping method ...
 
 	private static void reportStatus(EnrollmentStatus s) {
 		System.out.println("Status:  " + s.value());
 		System.out.println();
 	}
 
-	// ... as is this.
 
 	private static void attemptToEnroll(Student s, Section sec) {
 		System.out.println("Student " + s.getName() + 
 				   " is attempting to enroll in " +
 				   sec.toString());
 
-		// Utilize one housekeeping method from within another!
 		reportStatus(sec.enroll(s));
 	}
 }

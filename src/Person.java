@@ -1,31 +1,16 @@
-// We are making this class abstract because we do not wish for it
-// to be instantiated.
-
 public abstract class Person {
-	//------------
-	// Attributes.
-	//------------
-
 	private String name;
 	private String ssn;
-	
-	//----------------
-	// Constructor(s).
-	//----------------
 
 	public Person(String name, String ssn) {
 		this.setName(name);
 		this.setSsn(ssn);
 	}
 
-        public Person() {
+	public Person() {
 		this.setName("?");
 		this.setSsn("???-??-????");
-        }
-	
-	//------------------
-	// Accessor methods.
-	//------------------
+	}
 
 	public void setName(String n) {
 		name = n;
@@ -42,13 +27,6 @@ public abstract class Person {
 	public String getSsn() {
 		return ssn;
 	}
-
-	//-----------------------------
-	// Miscellaneous other methods.
-	//-----------------------------
-
-	// We'll let each subclass determine how it wishes to be
-	// represented as a String value.
 
 	public abstract String toString(); 
 

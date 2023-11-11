@@ -1,28 +1,13 @@
 import java.util.ArrayList;
 
 public class Transcript {
-	//------------
-	// Attributes.
-	//------------
-
 	private ArrayList<TranscriptEntry> transcriptEntries; 
 	private Student studentOwner;
-
-	//----------------
-	// Constructor(s).
-	//----------------
-
 	public Transcript(Student s) {
 		setStudentOwner(s);
 
-		// Note that we're instantiating empty support Collection(s).
-
 		transcriptEntries = new ArrayList<TranscriptEntry>();
 	}
-
-	//------------------
-	// Accessor methods.
-	//------------------
 
 	public void setStudentOwner(Student s) {
 		studentOwner = s;
@@ -32,27 +17,15 @@ public class Transcript {
 		return studentOwner;
 	}
 
-	//-----------------------------
-	// Miscellaneous other methods.
-	//-----------------------------
-
 	public boolean verifyCompletion(Course c) {
 		boolean outcome = false;
-
-		// Step through all TranscriptEntries, looking for one
-		// which reflects a Section of the Course of interest.
 
 		for (TranscriptEntry te : transcriptEntries) {
 			Section s = te.getSection();
 
 			if (s.isSectionOf(c)) {
-			    // Ensure that the grade was high enough.
-
 			    if (TranscriptEntry.passingGrade(te.getGrade())) {
 				outcome = true;
-
-				// We've found one, so we can afford to
-				// terminate the loop now.
 
 				break;
 			    }

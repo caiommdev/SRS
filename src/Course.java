@@ -2,34 +2,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class Course {
-	//------------
-	// Attributes.
-	//------------
-
 	private String courseNo;
 	private String courseName;
 	private double credits;
 	private ArrayList<Section> offeredAsSection; 
 	private ArrayList<Course> prerequisites; 
-	
-	//----------------
-	// Constructor(s).
-	//----------------
 
 	public Course(String cNo, String cName, double credits) {
 		setCourseNo(cNo);
 		setCourseName(cName);
 		setCredits(credits);
 
-		// Note that we're instantiating empty support Collection(s).
-
 		offeredAsSection = new ArrayList<Section>();
 		prerequisites = new ArrayList<Course>();
 	}
-
-	//------------------
-	// Accessor methods.
-	//------------------
 
 	public void setCourseNo(String cNo) {
 		courseNo = cNo;
@@ -54,10 +40,6 @@ public class Course {
 	public double getCredits() {
 		return credits;
 	}
-	
-	//-----------------------------
-	// Miscellaneous other methods.
-	//-----------------------------
 
 	public void display() {
 		System.out.println("Course Information:");
@@ -70,14 +52,10 @@ public class Course {
 			System.out.println("\t\t" + c.toString());
 		}
 
-		// Note use of print vs. println in next line of code.
-
 		System.out.print("\tOffered As Section(s):  ");
 		for (Section s : offeredAsSection) {
 			System.out.print(s.getSectionNo() + " ");
 		}
-
-		// Finish with a blank line.
 
 		System.out.println();
 	}
@@ -101,13 +79,8 @@ public class Course {
 
 	public Section scheduleSection(char day, String time, String room,
 				       int capacity) {
-		// Create a new Section (note the creative way in
-		// which we are assigning a section number) ...
-
 		Section s = new Section(offeredAsSection.size() + 1, 
 				day, time, this, room, capacity);
-		
-		// ... and then remember it!
 
 		addSection(s);
 		

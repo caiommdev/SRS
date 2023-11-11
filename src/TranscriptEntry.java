@@ -1,36 +1,17 @@
 public class TranscriptEntry {
-	//------------
-	// Attributes.
-	//------------
-
 	private String grade;
 	private Student student;
 	private Section section;
 	private Transcript transcript;
 
-	//----------------
-	// Constructor(s).
-	//----------------
-
 	public TranscriptEntry(Student s, String grade, Section se) {
 		this.setStudent(s);
 		this.setSection(se);
 		this.setGrade(grade);
-
-		// Obtain the Student's transcript ...
-
 		Transcript t = s.getTranscript();
-
-		// ... and then link the Transcript and the TranscriptEntry
-		// together bidirectionally.
-
 		this.setTranscript(t);
 		t.addTranscriptEntry(this);
 	}
-
-	//------------------
-	// Accessor methods.
-	//------------------
 
 	public void setStudent(Student s) {
 		student = s;
@@ -64,13 +45,6 @@ public class TranscriptEntry {
 		return transcript;
 	}
 
-	//-----------------------------
-	// Miscellaneous other methods.
-	//-----------------------------
-
-	// These next two methods are declared to be static, so that they
-	// may be used as utility methods.
-
 	public static boolean validateGrade(String grade) {
 		boolean outcome = false;
 
@@ -98,10 +72,7 @@ public class TranscriptEntry {
 	public static boolean passingGrade(String grade) {
 		boolean outcome = false;
 
-		// First, make sure it is a valid grade.
-
 		if (validateGrade(grade)) {
-			// Next, make sure that the grade is a D or better.
 
 			if (grade.startsWith("A") ||
 			    grade.startsWith("B") ||
