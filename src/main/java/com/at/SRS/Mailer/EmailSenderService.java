@@ -11,7 +11,7 @@ public class EmailSenderService {
     @Autowired
     private JavaMailSender mailSender;
 
-    public void sendSimpleEmail(String toEmail, String body, String subject) {
+    public void sendEmail(String toEmail, String body, String subject) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("caio.marinho@al.infnet.edu.br");
         message.setTo(toEmail);
@@ -19,7 +19,7 @@ public class EmailSenderService {
         message.setSubject(subject);
 
         mailSender.send(message);
-        System.out.println("Mail Send...");
+        System.out.println("Mail Send Successfully...");
     }
 
 }

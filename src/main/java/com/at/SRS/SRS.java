@@ -179,6 +179,6 @@ public class SRS {
 	}
 
 	public void triggerMail() {
-		senderService.sendSimpleEmail("caiomotamarinho22@gmail.com", "This is the body", "this is the subject");
+		senderService.sendEmail("caiomotamarinho22@gmail.com", "The process ran successfully!!!", "SRS AUTO MAIL");
 	}
 }
